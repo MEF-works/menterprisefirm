@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 14% 4%;
+    --foreground: 220 14% 96%;
+    --card: 220 14% 6%;
+    --card-foreground: 220 14% 96%;
+    --popover: 220 14% 6%;
+    --popover-foreground: 220 14% 96%;
+    --primary: 42 45% 57%;
+    --primary-foreground: 220 14% 4%;
+    --secondary: 220 14% 12%;
+    --secondary-foreground: 220 14% 96%;
+    --muted: 220 14% 15%;
+    --muted-foreground: 220 14% 65%;
+    --accent: 42 45% 57%;
+    --accent-foreground: 220 14% 4%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 14% 18%;
+    --input: 220 14% 18%;
+    --ring: 42 45% 57%;
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Sora', sans-serif;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Grain overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Section base */
+.section-pinned {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Text gradient overlay for readability */
+.text-overlay-gradient {
+  background: linear-gradient(180deg, rgba(11,12,14,0.35) 0%, rgba(11,12,14,0.75) 100%);
+}
+
+/* Gold accent color */
+.text-gold {
+  color: #C9A45C;
+}
+
+.border-gold {
+  border-color: #C9A45C;
+}
+
+.bg-gold {
+  background-color: #C9A45C;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 border border-gold text-gold font-medium transition-all duration-200;
+}
+
+.btn-primary:hover {
+  @apply bg-gold text-[#0B0C0E];
+  transform: translateY(-2px);
+}
+
+/* Link underline animation */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #C9A45C;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but allow scrolling */
+body::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(201, 164, 92, 0.3);
+  color: #F4F6F9;
+}
