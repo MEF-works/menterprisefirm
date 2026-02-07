@@ -1,261 +1,171 @@
-import { useRef, useLayoutEffect, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef, useState } from 'react';
 import { Mail, MapPin, Building, User, Send } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { FOOTER_LEGAL, CONTACT_COPY } from '../lib/copy';
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const bodyRef = useRef<HTMLParagraphElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-  const leaderRef = useRef<HTMLDivElement>(null);
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    message: ''
+    message: '',
   });
-
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const ctx = gsap.context(() => {
-      // Flowing section animations (triggered when entering viewport)
-      gsap.fromTo(headlineRef.current, 
-        { y: 24, opacity: 0 }, 
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.7,
-          scrollTrigger: {
-            trigger: headlineRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-      gsap.fromTo(bodyRef.current, 
-        { y: 20, opacity: 0 }, 
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.6,
-          delay: 0.1,
-          scrollTrigger: {
-            trigger: bodyRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-      gsap.fromTo(contactRef.current?.children || [], 
-        { y: 16, opacity: 0 }, 
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.5,
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: contactRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-      gsap.fromTo(leaderRef.current, 
-        { y: 16, opacity: 0 }, 
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: leaderRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-      gsap.fromTo(formRef.current, 
-        { y: 20, opacity: 0 }, 
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.6,
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
-    alert('Thank you for your inquiry. We will be in touch shortly.');
+    if (typeof window !== 'undefined' && (window as unknown as { gtag?: (a: string, b: string, c: Record<string, string>) => void }).gtag) {
+      (window as unknown as { gtag: (a: string, b: string, c: Record<string, string>) => void }).gtag('event', 'contact_submit', { campaign: 'holding_router' });
+    }
+    setSubmitted(true);
     setFormData({ name: '', email: '', company: '', message: '' });
   };
 
   return (
-    <section 
-      ref={sectionRef} 
+    <section
+      ref={sectionRef}
       id="contact"
-      className="relative min-h-screen bg-[#F4F6F9] py-[10vh] px-[8vw]"
+      className="relative min-h-screen bg-[#F4F6F9] py-16 md:py-24 px-[5vw] md:px-[8vw]"
+      aria-labelledby="contact-heading"
     >
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left column */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           <div>
-            <h2 
-              ref={headlineRef}
-              className="font-display font-bold text-[clamp(32px,4vw,56px)] leading-[1.05] tracking-[-0.02em] text-[#0B0C0E] mb-6"
+            <h2
+              id="contact-heading"
+              className="font-display font-bold text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-tight text-[#0B0C0E] mb-4"
             >
-              Let's build with discipline.
+              {CONTACT_COPY.headline}
             </h2>
-            
-            <p 
-              ref={bodyRef}
-              className="text-[clamp(14px,1.2vw,18px)] leading-relaxed text-[rgba(11,12,14,0.68)] mb-10 max-w-[480px]"
-            >
-              If you're exploring partnerships, co-investment, or infrastructure procurement, we'd love to hear from you.
+            <p className="text-base md:text-lg text-[rgba(11,12,14,0.72)] mb-8 max-w-[480px] leading-relaxed">
+              {CONTACT_COPY.subhead}
             </p>
 
-            {/* Contact details */}
-            <div ref={contactRef} className="space-y-5 mb-10">
-              <a 
+            <div className="space-y-5 mb-8">
+              <a
                 href="mailto:mike@mefworks.com"
-                className="flex items-center gap-3 text-[#0B0C0E] hover:text-gold transition-colors"
+                className="flex items-center gap-3 text-[#0B0C0E] hover:text-gold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-sm"
               >
-                <Mail className="w-5 h-5 text-gold" />
-                <span className="text-sm">mike@mefworks.com</span>
+                <Mail className="w-5 h-5 text-gold shrink-0" aria-hidden />
+                <span className="text-base">mike@mefworks.com</span>
               </a>
-              
-              <div className="flex items-start gap-3 text-[rgba(11,12,14,0.68)]">
-                <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
-                <span className="text-sm">
+              <div className="flex items-start gap-3 text-[rgba(11,12,14,0.72)]">
+                <MapPin className="w-5 h-5 text-gold shrink-0 mt-0.5" aria-hidden />
+                <span className="text-base">
                   4496 Mahoning Ave #968<br />
                   Youngstown, Ohio 44515
                 </span>
               </div>
-              
-              <div className="flex items-center gap-3 text-[rgba(11,12,14,0.68)]">
-                <Building className="w-5 h-5 text-gold" />
-                <span className="text-sm">EIN 85-4119379</span>
+              <div className="flex items-center gap-3 text-[rgba(11,12,14,0.72)]">
+                <Building className="w-5 h-5 text-gold shrink-0" aria-hidden />
+                <span className="text-base">EIN 85-4119379</span>
               </div>
             </div>
 
-            {/* Leadership */}
-            <div 
-              ref={leaderRef}
-              className="border-t border-[rgba(11,12,14,0.12)] pt-6"
-            >
-              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[rgba(11,12,14,0.45)] block mb-3">
+            <p className="font-mono text-xs uppercase tracking-wider text-[rgba(11,12,14,0.5)] mb-4">
+              {CONTACT_COPY.responseNote}
+            </p>
+
+            <div className="border-t border-[rgba(11,12,14,0.12)] pt-6">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-[rgba(11,12,14,0.5)] block mb-3">
                 Leadership
               </span>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#0B0C0E] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-[#0B0C0E] flex items-center justify-center" aria-hidden>
                   <User className="w-5 h-5 text-[#F4F6F9]" />
                 </div>
                 <div>
-                  <span className="block text-[#0B0C0E] font-medium text-sm">Michael Fluet</span>
-                  <span className="block text-[rgba(11,12,14,0.55)] text-xs">CEO / Founder</span>
+                  <span className="block text-[#0B0C0E] font-medium text-base">Michael Fluet</span>
+                  <span className="block text-[rgba(11,12,14,0.55)] text-sm">CEO / Founder</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right column - Form */}
-          <form 
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="space-y-5"
-          >
-            <div>
-              <label className="font-mono text-[11px] uppercase tracking-[0.08em] text-[rgba(11,12,14,0.55)] block mb-2">
-                Name
-              </label>
-              <input 
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-3 bg-white border border-[rgba(11,12,14,0.12)] text-[#0B0C0E] text-sm focus:outline-none focus:border-gold transition-colors"
-                placeholder="Your name"
-                required
-              />
-            </div>
-            
-            <div>
-              <label className="font-mono text-[11px] uppercase tracking-[0.08em] text-[rgba(11,12,14,0.55)] block mb-2">
-                Email
-              </label>
-              <input 
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 bg-white border border-[rgba(11,12,14,0.12)] text-[#0B0C0E] text-sm focus:outline-none focus:border-gold transition-colors"
-                placeholder="your@email.com"
-                required
-              />
-            </div>
-            
-            <div>
-              <label className="font-mono text-[11px] uppercase tracking-[0.08em] text-[rgba(11,12,14,0.55)] block mb-2">
-                Company
-              </label>
-              <input 
-                type="text"
-                value={formData.company}
-                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full px-4 py-3 bg-white border border-[rgba(11,12,14,0.12)] text-[#0B0C0E] text-sm focus:outline-none focus:border-gold transition-colors"
-                placeholder="Your company"
-              />
-            </div>
-            
-            <div>
-              <label className="font-mono text-[11px] uppercase tracking-[0.08em] text-[rgba(11,12,14,0.55)] block mb-2">
-                Message
-              </label>
-              <textarea 
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 bg-white border border-[rgba(11,12,14,0.12)] text-[#0B0C0E] text-sm focus:outline-none focus:border-gold transition-colors resize-none"
-                rows={4}
-                placeholder="How can we help?"
-                required
-              />
-            </div>
-            
-            <button 
-              type="submit"
-              className="w-full px-6 py-3 bg-[#0B0C0E] text-[#F4F6F9] font-medium text-sm flex items-center justify-center gap-2 hover:bg-gold hover:text-[#0B0C0E] transition-all duration-200"
-            >
-              Send inquiry
-              <Send className="w-4 h-4" />
-            </button>
-          </form>
+          <div>
+            {submitted ? (
+              <div className="p-6 border border-[rgba(11,12,14,0.12)] bg-white rounded-sm">
+                <p className="text-[#0B0C0E] font-medium mb-2">Inquiry sent.</p>
+                <p className="text-[rgba(11,12,14,0.72)] text-base">
+                  We’ll respond within 24 business hours.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5" aria-labelledby="contact-heading">
+                <div>
+                  <label htmlFor="contact-name" className="font-mono text-[11px] uppercase tracking-wider text-[rgba(11,12,14,0.55)] block mb-2">
+                    {CONTACT_COPY.nameLabel}
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="input-base w-full"
+                    placeholder="Your name"
+                    required
+                    autoComplete="name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className="font-mono text-[11px] uppercase tracking-wider text-[rgba(11,12,14,0.55)] block mb-2">
+                    {CONTACT_COPY.emailLabel}
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="input-base w-full"
+                    placeholder="your@email.com"
+                    required
+                    autoComplete="email"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-company" className="font-mono text-[11px] uppercase tracking-wider text-[rgba(11,12,14,0.55)] block mb-2">
+                    {CONTACT_COPY.companyLabel}
+                  </label>
+                  <input
+                    id="contact-company"
+                    type="text"
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    className="input-base w-full"
+                    placeholder="Your company"
+                    autoComplete="organization"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-message" className="font-mono text-[11px] uppercase tracking-wider text-[rgba(11,12,14,0.55)] block mb-2">
+                    {CONTACT_COPY.messageLabel}
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="input-base w-full resize-none min-h-[120px]"
+                    rows={4}
+                    placeholder={CONTACT_COPY.messagePlaceholder}
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn-primary w-full min-h-[48px] flex items-center justify-center gap-2" data-track="contact-submit">
+                  {CONTACT_COPY.submitLabel}
+                  <Send className="w-4 h-4 shrink-0" aria-hidden />
+                </button>
+              </form>
+            )}
+          </div>
         </div>
 
-        {/* Footer */}
-        <footer className="mt-20 pt-8 border-t border-[rgba(11,12,14,0.12)]">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <span className="font-display font-semibold text-[#0B0C0E]">
-              MEnterprise
-            </span>
-            <span className="text-[rgba(11,12,14,0.45)] text-xs">
+        <footer className="mt-16 md:mt-20 pt-8 border-t border-[rgba(11,12,14,0.12)]">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <span className="font-display font-semibold text-[#0B0C0E]">MEnterprise</span>
+            <p className="text-[rgba(11,12,14,0.55)] text-xs max-w-xl leading-relaxed">
+              {FOOTER_LEGAL}
+            </p>
+            <span className="text-[rgba(11,12,14,0.45)] text-xs shrink-0">
               © MEnterprise Firm Inc. All rights reserved.
             </span>
           </div>

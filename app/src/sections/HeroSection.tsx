@@ -1,7 +1,7 @@
 import { useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +10,7 @@ export default function HeroSection() {
   const headlineRef = useRef<HTMLDivElement>(null);
   const subheadRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const proofRef = useRef<HTMLParagraphElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -17,35 +18,20 @@ export default function HeroSection() {
     const headline = headlineRef.current;
     const subhead = subheadRef.current;
     const cta = ctaRef.current;
+    const proof = proofRef.current;
     const bg = bgRef.current;
 
     if (!section || !headline || !subhead || !cta || !bg) return;
 
     const ctx = gsap.context(() => {
-      // Auto-play entrance animation
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo(bg, 
-        { opacity: 0 }, 
-        { opacity: 1, duration: 0.8 }
-      )
-      .fromTo(headline.children, 
-        { y: 30, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.1 }, 
-        '-=0.4'
-      )
-      .fromTo(subhead, 
-        { y: 20, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.6 }, 
-        '-=0.3'
-      )
-      .fromTo(cta.children, 
-        { y: 15, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }, 
-        '-=0.3'
-      );
+      tl.fromTo(bg, { opacity: 0 }, { opacity: 1, duration: 0.8 })
+        .fromTo(headline.children, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1 }, '-=0.4')
+        .fromTo(subhead, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
+        .fromTo(cta.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }, '-=0.3');
+      if (proof) tl.fromTo(proof, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, '-=0.2');
 
-      // Scroll-driven exit animation
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -54,122 +40,99 @@ export default function HeroSection() {
           pin: true,
           scrub: 0.6,
           onLeaveBack: () => {
-            // Reset all elements to visible when scrolling back to top
             gsap.set([headline.children, subhead, cta.children], { opacity: 1, y: 0 });
+            if (proof) gsap.set(proof, { opacity: 1, y: 0 });
             gsap.set(bg, { opacity: 1, scale: 1 });
-          }
-        }
+          },
+        },
       });
 
-      // ENTRANCE (0-30%): Hold (already visible from load animation)
-      // SETTLE (30-70%): Hold
-      // EXIT (70-100%): Fade out
-      scrollTl.fromTo(headline.children, 
-        { y: 0, opacity: 1 }, 
-        { y: '-18vh', opacity: 0, ease: 'power2.in', stagger: 0.02 }, 
-        0.70
-      )
-      .fromTo(subhead, 
-        { y: 0, opacity: 1 }, 
-        { y: '-10vh', opacity: 0, ease: 'power2.in' }, 
-        0.72
-      )
-      .fromTo(cta.children, 
-        { y: 0, opacity: 1 }, 
-        { y: '-8vh', opacity: 0, ease: 'power2.in', stagger: 0.03 }, 
-        0.74
-      )
-      .fromTo(bg, 
-        { scale: 1, opacity: 1 }, 
-        { scale: 1.06, opacity: 0.85, ease: 'none' }, 
-        0.70
-      );
-
+      scrollTl
+        .fromTo(headline.children, { y: 0, opacity: 1 }, { y: '-18vh', opacity: 0, ease: 'power2.in', stagger: 0.02 }, 0.70)
+        .fromTo(subhead, { y: 0, opacity: 1 }, { y: '-10vh', opacity: 0, ease: 'power2.in' }, 0.72)
+        .fromTo(cta.children, { y: 0, opacity: 1 }, { y: '-8vh', opacity: 0, ease: 'power2.in', stagger: 0.03 }, 0.74)
+        .fromTo(bg, { scale: 1, opacity: 1 }, { scale: 1.06, opacity: 0.85, ease: 'none' }, 0.70);
+      if (proof) scrollTl.fromTo(proof, { y: 0, opacity: 1 }, { y: '-4vh', opacity: 0, ease: 'power2.in' }, 0.73);
     }, section);
 
     return () => ctx.revert();
   }, []);
 
-  const scrollToPortfolio = () => {
-    const portfolioSection = document.getElementById('portfolio-overview');
-    if (portfolioSection) {
-      portfolioSection.scrollIntoView({ behavior: 'smooth' });
+  const scrollToContact = () => {
+    const el = document.getElementById('contact');
+    el?.scrollIntoView({ behavior: 'smooth' });
+    if (typeof window !== 'undefined' && (window as unknown as { gtag?: (a: string, b: string, c: Record<string, string>) => void }).gtag) {
+      (window as unknown as { gtag: (a: string, b: string, c: Record<string, string>) => void }).gtag('event', 'hero_cta_click', { campaign: 'holding_router' });
     }
   };
 
+  const scrollToPortfolio = () => {
+    const el = document.getElementById('portfolio');
+    el?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section 
-      ref={sectionRef} 
-      className="section-pinned z-10"
-    >
-      {/* Background Image */}
-      <div 
-        ref={bgRef}
-        className="absolute inset-0 z-[1]"
-        style={{ opacity: 0 }}
-      >
-        <img 
-          src="/hero_city_skyline.jpg" 
-          alt="City skyline" 
+    <section ref={sectionRef} className="section-pinned z-10" aria-labelledby="hero-heading">
+      <div ref={bgRef} className="absolute inset-0 z-[1]" style={{ opacity: 0 }}>
+        <img
+          src="/hero_city_skyline.jpg"
+          alt=""
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
-        <div className="absolute inset-0 text-overlay-gradient" />
+        <div className="absolute inset-0 text-overlay-gradient" aria-hidden />
       </div>
 
-      {/* Content */}
-      <div className="relative z-[8] h-full flex flex-col items-center justify-center px-4">
-        {/* Headline */}
-        <div 
-          ref={headlineRef}
-          className="text-center mb-6"
-          style={{ width: 'min(78vw, 1100px)' }}
-        >
-          <h1 className="font-display font-bold text-[clamp(32px,5vw,72px)] leading-[0.95] tracking-[-0.02em] text-[#F4F6F9]">
-            MEnterprise Firm Inc
+      <div className="relative z-[8] h-full flex flex-col items-center justify-center px-4 sm:px-6">
+        <div ref={headlineRef} className="text-center mb-6" style={{ width: 'min(90vw, 1100px)' }}>
+          <h1 id="hero-heading" className="font-display font-bold text-[clamp(28px,5vw,64px)] leading-[0.95] tracking-[-0.02em] text-[#F4F6F9]">
+            Compliance infrastructure for high-risk commerce.
           </h1>
-          <h1 className="font-display font-bold text-[clamp(32px,5vw,72px)] leading-[0.95] tracking-[-0.02em] text-[#F4F6F9] mt-2">
-            A holding company
-          </h1>
-          <h1 className="font-display font-bold text-[clamp(32px,5vw,72px)] leading-[0.95] tracking-[-0.02em] text-gold mt-2">
-            for the modern stack.
-          </h1>
+          <p className="font-display font-semibold text-[clamp(18px,2.5vw,28px)] leading-tight tracking-tight text-gold mt-4">
+            One network. Identity, risk scanning, payments.
+          </p>
         </div>
 
-        {/* Subheadline */}
-        <p 
+        <p
           ref={subheadRef}
-          className="text-center text-[clamp(14px,1.4vw,20px)] leading-relaxed text-[rgba(244,246,249,0.72)] max-w-[720px] mb-10"
+          className="text-center text-base sm:text-lg text-[rgba(244,246,249,0.85)] max-w-[640px] mb-8 sm:mb-10 leading-relaxed"
           style={{ opacity: 0 }}
         >
-          We acquire, build, and operate infrastructure businesses that power compliance, identity, and high-risk commerce.
+          MEnterprise operates the Sovereign Stack ecosystem. We acquire, build, and run infrastructure that keeps merchants and partners audit-ready.
         </p>
 
-        {/* CTAs */}
-        <div 
-          ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center gap-4"
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-4" style={{ opacity: 0 }}>
+          <button
+            type="button"
+            onClick={scrollToContact}
+            className="btn-primary flex items-center gap-2 text-sm font-medium min-h-[48px] px-6"
+            data-track="hero-primary-cta"
+          >
+            Request partner pack
+            <ArrowRight className="w-4 h-4 shrink-0" aria-hidden />
+          </button>
+          <button
+            type="button"
+            onClick={scrollToPortfolio}
+            className="btn-secondary flex items-center gap-2 text-sm font-medium min-h-[48px]"
+            data-track="hero-secondary-cta"
+          >
+            View portfolio
+          </button>
+        </div>
+
+        <p
+          ref={proofRef}
+          className="mt-6 font-mono text-[11px] uppercase tracking-wider text-[rgba(244,246,249,0.5)] text-center"
           style={{ opacity: 0 }}
         >
-          <button 
-            onClick={scrollToPortfolio}
-            className="btn-primary flex items-center gap-2 text-sm font-medium"
-          >
-            Explore the portfolio
-            <ArrowRight className="w-4 h-4" />
-          </button>
-          <a 
-            href="mailto:mike@mefworks.com"
-            className="link-underline flex items-center gap-2 text-[rgba(244,246,249,0.72)] text-sm hover:text-[#F4F6F9] transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            Request an introduction
-          </a>
-        </div>
+          Response within 24 business hours
+        </p>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[8]">
-        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-[rgba(244,246,249,0.45)]">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[8]" aria-hidden>
+        <span className="font-mono text-[11px] uppercase tracking-wider text-[rgba(244,246,249,0.45)]">
           Scroll
         </span>
       </div>

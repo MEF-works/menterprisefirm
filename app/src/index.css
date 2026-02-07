@@ -41,6 +41,8 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
+    font-size: clamp(16px, 2.5vw, 18px);
+    line-height: 1.5;
     overflow-x: hidden;
   }
 }
@@ -91,14 +93,56 @@
   background-color: #C9A45C;
 }
 
-/* Button styles */
+/* Button system: primary / secondary / ghost — 150–300ms */
 .btn-primary {
-  @apply px-6 py-3 border border-gold text-gold font-medium transition-all duration-200;
+  @apply px-6 py-3 border border-gold text-gold font-medium;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
-
 .btn-primary:hover {
   @apply bg-gold text-[#0B0C0E];
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+}
+.btn-primary:focus-visible {
+  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-[#0B0C0E];
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border border-[rgba(244,246,249,0.3)] text-[#F4F6F9] font-medium bg-transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.btn-secondary:hover {
+  @apply border-[rgba(244,246,249,0.6)] bg-[rgba(244,246,249,0.08)];
+}
+.btn-secondary:focus-visible {
+  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-[#0B0C0E];
+}
+
+.btn-ghost {
+  @apply px-4 py-2 text-[rgba(244,246,249,0.8)] font-medium bg-transparent;
+  transition: color 0.2s ease;
+}
+.btn-ghost:hover {
+  @apply text-[#F4F6F9];
+}
+.btn-ghost:focus-visible {
+  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-[#0B0C0E];
+}
+
+/* Form input base — contrast + focus */
+.input-base {
+  @apply px-4 py-3 bg-white border border-[rgba(11,12,14,0.12)] text-[#0B0C0E] text-base;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input-base::placeholder {
+  @apply text-[rgba(11,12,14,0.45)];
+}
+.input-base:focus {
+  @apply outline-none border-gold;
+  box-shadow: 0 0 0 1px #C9A45C;
+}
+.input-base:focus-visible {
+  @apply outline-none;
+  box-shadow: 0 0 0 2px #C9A45C;
 }
 
 /* Link underline animation */
