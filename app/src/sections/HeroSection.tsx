@@ -99,7 +99,7 @@ export default function HeroSection() {
           className="text-center text-base sm:text-lg text-[rgba(244,246,249,0.85)] max-w-[640px] mb-8 sm:mb-10 leading-relaxed"
           style={{ opacity: 0 }}
         >
-          MEnterprise operates the Sovereign Stack ecosystem. We acquire, build, and run infrastructure that keeps merchants and partners audit-ready.
+          MEnterprise operates the Sovereign Stack ecosystem. We acquire, build, and run infrastructure that keeps merchants and partners resilient and audit-ready.
         </p>
 
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-4" style={{ opacity: 0 }}>

@@ -86,7 +86,7 @@ export default function PortfolioRouter() {
             id="portfolio-heading"
             className="font-display font-bold text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-tight text-[#F4F6F9] mb-4"
           >
-            One network. Seven engines.
+            One network. Fifteen companies.
           </h2>
           <p className="text-[rgba(244,246,249,0.72)] text-base md:text-lg max-w-xl leading-relaxed">
             Identity, compliance scanning, and high-risk payments. Each company ships a clear outcome.

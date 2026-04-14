@@ -58,7 +58,7 @@ export default function ContactSection() {
               </div>
               <div className="flex items-center gap-3 text-[rgba(11,12,14,0.72)]">
                 <Building className="w-5 h-5 text-gold shrink-0" aria-hidden />
-                <span className="text-base">EIN 85-4119379</span>
+                <span className="text-base"></span>
               </div>
             </div>
 
