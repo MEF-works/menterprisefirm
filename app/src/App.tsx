@@ -420,7 +420,7 @@ function HomePage() {
                 <h2>Systems with a job to do.</h2>
               </div>
               <div className="heading-action">
-                <p>Current candidates are selected for demonstrable architecture, operational value, and relevance to systems engineering roles.</p>
+                <p>Client-delivered workflows, public developer tools, and current products. Each project is presented with its real scope and evidence.</p>
                 <a className="text-link" href="/work">View all selected work <ArrowRight size={16} /></a>
               </div>
             </div>
@@ -463,12 +463,12 @@ function HomePage() {
             </div>
             <div className="founder-copy">
               <span className="section-kicker">Founder briefing</span>
-              <h2>A nontraditional path built through real problems.</h2>
+              <h2>From physical systems to software people depend on.</h2>
               <p>
-                Michael Fluet entered software through hands-on business requirements, beginning with websites, ecommerce, and digital operations before progressing into full-stack applications, APIs, cloud infrastructure, automation, and operational system design.
+                Before software, Michael spent nearly two decades troubleshooting commercial doors and mechanical systems where the outcome had to work in the real world. He brought that same approach to paid web and commerce projects, integrations, backend services, cloud infrastructure, and operational automation.
               </p>
               <p>
-                AI has accelerated that progression by increasing the frequency at which unfamiliar systems can be studied, implemented, tested, challenged, and documented. Architectural decisions, validation, deployment, and the consequences of the result remain his responsibility.
+                His approach is straightforward: understand the constraints, choose proportionate solutions, test assumptions, communicate clearly, and take responsibility for delivery. AI accelerates research and implementation, but it does not replace that judgment.
               </p>
               <div className="founder-actions">
                 <a className="button button-primary" href="/about">Read the full briefing <ArrowRight size={17} /></a>
@@ -484,7 +484,7 @@ function HomePage() {
               <span className="section-kicker">Human + AI collaboration</span>
               <h2>Acceleration without outsourced accountability.</h2>
               <p>
-                AI is used as an engineering collaborator for research, implementation, review, testing, debugging, and documentation. It is not presented as a credential and it does not own the decision to deploy.
+                AI helps explore approaches, implement, review, debug, and document at greater speed. Architecture, validation, client communication, and deployment decisions remain human responsibilities.
               </p>
             </div>
             <div className="responsibility-panel">
@@ -508,15 +508,15 @@ function HomePage() {
         <section className="section contact-section">
           <div className="shell contact-panel">
             <div>
-              <span className="section-kicker">Open to the right next step</span>
-              <h2>Engineering roles, design partnerships, and useful technical work.</h2>
+              <span className="section-kicker">Available for selected work</span>
+              <h2>Have a system to build, improve, or untangle?</h2>
               <p>
-                Michael is pursuing remote software, implementation, support, systems, and cloud engineering opportunities while continuing to develop MEnterprise products.
+                I take on focused engineering work where reliability, clear thinking, and follow-through matter. Open to client projects, technical partnerships, and remote engineering roles.
               </p>
             </div>
             <div className="contact-actions">
-              <a className="button button-light" href="mailto:mike@mefworks.com?subject=Engineering%20Opportunity">Discuss an opportunity <Mail size={17} /></a>
-              <a className="button button-ghost" href="https://builtbymef.pro" target="_blank" rel="noreferrer">Personal profile <ArrowUpRight size={17} /></a>
+              <a className="button button-light" href="mailto:mike@mefworks.com?subject=Engineering%20Project%20Inquiry">Discuss a project <Mail size={17} /></a>
+              <a className="button button-ghost" href="mailto:mike@mefworks.com?subject=Engineering%20Role%20Inquiry">Discuss a role <ArrowUpRight size={17} /></a>
             </div>
           </div>
         </section>
@@ -533,9 +533,9 @@ function AboutPage() {
       <main>
         <section className="page-hero shell">
           <span className="section-kicker">About the company & founder</span>
-          <h1>A clear account of where the work started, how it evolved, and what remains to be proven.</h1>
+          <h1>Practical engineering. Ownership from problem to outcome.</h1>
           <p>
-            MEnterprise Firm Inc. is a privately owned software product and applied systems engineering company founded in 2020. Its current work centers on operator-controlled software, operational tooling, and systems that connect technical execution to practical business needs.
+            Founded in 2020, MEnterprise Firm Inc. builds software products and delivers technical work rooted in operational needs. The experience spans client commerce workflows, applications and integrations, cloud operations, and owner-controlled automation.
           </p>
         </section>
 
@@ -550,7 +550,7 @@ function AboutPage() {
                 The company began as a vehicle for web, ecommerce, and digital business work. Each real deployment exposed the next layer of the problem: integrations, payments, data, automation, infrastructure, monitoring, deployment, and the operating controls required to keep systems useful after launch.
               </p>
               <p>
-                Today, MEnterprise develops owned software products and selected technical systems. The company does not claim enterprise scale or finished mastery. It does claim a substantial record of building, deploying, debugging, and operating increasingly complex systems while documenting what is proven, what is still experimental, and what requires deeper validation.
+                Today, MEnterprise develops owned software products and selected client systems. The standard is practical: understand the business constraint, build what is needed, validate behavior, and leave operators with a system they can actually use. Project write-ups distinguish commercial deployments, working tools, and experiments so readers can evaluate the evidence directly.
               </p>
             </div>
           </div>
@@ -584,15 +584,15 @@ function AboutPage() {
             </div>
             <div className="prose-block founder-prose">
               <span className="section-kicker">Founder briefing</span>
-              <h2>Learning by taking responsibility for real outcomes.</h2>
+              <h2>Dependability isn't a feature. It's how I work.</h2>
               <p>
-                I am the founder of MEnterprise Firm Inc. and an applied systems engineer based in Warren, Ohio. I came into software through hands-on business problems rather than a traditional engineering path, beginning with websites, ecommerce, and digital operations before progressing into full-stack applications, APIs, cloud infrastructure, automation, payment integrations, and operational system design.
+                I'm the founder of MEnterprise Firm Inc. and an applied systems engineer based in Warren, Ohio. For nearly two decades before software, I worked with commercial doors, mechanical troubleshooting, and field operations. That taught me to understand a system before changing it, communicate plainly, and be accountable when something needs to work. I carried those habits into paid web and commerce projects, backend applications, integrations, cloud infrastructure, and automation.
               </p>
               <p>
-                My work with AI has accelerated that progression substantially. I use it as an engineering collaborator for research, implementation, review, testing, and exploring unfamiliar systems, while remaining responsible for defining the problem, making architectural decisions, validating the results, and understanding what is deployed. That collaboration has allowed me to learn rapidly, attempt increasingly complex work, and steadily strengthen both my technical capabilities and judgment.
+                I use AI as an engineering collaborator to explore alternatives, accelerate implementation, challenge assumptions, and improve the feedback loop. But I take ownership of the problem definition, the architecture we choose, the testing, the integrations, and the consequences of shipping. When something is uncertain, I would rather investigate it than pretend otherwise.
               </p>
               <p>
-                I am passionate about building useful systems and understanding how their parts behave together. My immediate goal is to continue developing through professional engineering work, stronger technical mentorship, deeper cloud and systems knowledge, and the continued development of products such as Zero Handoff. I do not consider the journey complete. I am committed to seeing how far disciplined work, honest evaluation, and continued learning can take it.
+                I enjoy difficult problems and believe good engineering is often about finding the simpler solution that still respects the real constraints. I'm easy to work with, direct about tradeoffs, and serious about follow-through. I'm open to the right engineering role, client project, or technical partnership. If there's a useful problem to solve, I'd be glad to talk.
               </p>
             </div>
           </div>
