@@ -633,13 +633,13 @@ function AboutPage() {
             </div>
             <div className="assessment-teaser">
               <div>
-                <span>For future due diligence</span>
-                <h3>A candid AI work-history assessment is being prepared.</h3>
+                <span>Working principles</span>
+                <h3>Clear scope. Visible progress. No surprises.</h3>
                 <p>
-                  ChatGPT and Claude will receive the same prompt and be asked to identify demonstrated strengths, weaknesses, knowledge gaps, and areas that remain professionally unproven. The reports will be optional, brief, and published as context rather than endorsement.
+                  A useful engagement starts with understanding the real problem and its constraints. I communicate tradeoffs, test the important assumptions, and make sure ownership and next steps are explicit. When a project has limitations, I'll tell you plainly.
                 </p>
               </div>
-              <span className="teaser-state">COMING AFTER EVIDENCE REVIEW</span>
+              <span className="teaser-state">EVIDENCE-LED DELIVERY</span>
             </div>
           </div>
         </section>
@@ -669,19 +669,55 @@ function WorkPage() {
       <main>
         <section className="page-hero shell">
           <span className="section-kicker">Selected engineering work</span>
-          <h1>Projects chosen for what they demonstrate, not how many were built.</h1>
+          <h1>Built for real workflows. Documented for closer inspection.</h1>
           <p>
-            This collection emphasizes operational architecture, deployable systems, failure handling, automation, and tools that connect software to real work. Public code is linked where appropriate. Private systems are described with their maturity and proof boundaries intact.
+            A selection of commercial delivery, public tooling, and products in development. The details focus on engineering decisions, actual operational behavior, and what the available evidence supports.
           </p>
         </section>
 
         <section className="section work-page-section">
           <div className="shell work-page-grid">
             {projects.map((project, index) => (
-              <div id={index === 0 ? 'zero-handoff' : undefined} key={project.title}>
+              <div id={index === 0 ? 'zero-handoff' : index === 1 ? 'commerce' : undefined} key={project.title}>
                 <ProjectCard project={project} featured={index === 0} />
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="section commerce-case-section">
+          <div className="shell">
+            <div className="section-heading split-heading">
+              <div>
+                <span className="section-kicker">Commercial delivery case study</span>
+                <h2>The important decision was what not to automate.</h2>
+              </div>
+              <p>
+                A merchant needed checkout and shipping workflows that operated around direct-to-merchant payment options. The objective was to reduce repetitive order handling without confusing notification signals with verified funds.
+              </p>
+            </div>
+            <div className="commerce-grid">
+              <div className="commerce-story">
+                <h3>Automate the handoffs. Keep the decision with the merchant.</h3>
+                <p>
+                  The WooCommerce implementation generated orders and handed customers to external payment applications. A custom notification-processing workflow matched incoming payment emails to orders and advanced internal workflow status. Customized third-party shipping integrations prepared the fulfillment steps.
+                </p>
+                <p>
+                  The merchant still checked the receiving account before marking orders complete and buying shipping labels. That was a deliberate control boundary, not an unfinished automation.
+                </p>
+              </div>
+              <div className="commerce-evidence">
+                <div className="architecture-header"><span>Archived application evidence</span><span>8 MONTHS</span></div>
+                <div className="commerce-metrics">
+                  <div><strong>7,559</strong><span>Recorded orders</span></div>
+                  <div><strong>6,746</strong><span>Completed-status orders</span></div>
+                  <div><strong>$1.23M</strong><span>Recorded completed-status value</span></div>
+                </div>
+                <p className="commerce-caveat">
+                  Source: private WooCommerce archive, June 24, 2025–February 23, 2026. These figures reflect application records, not independently confirmed payment settlements. Sanitized architecture and database evidence can be reviewed where appropriate.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -742,7 +778,12 @@ function App() {
   const path = useMemo(() => window.location.pathname.replace(/\/+$/, '') || '/', [])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const anchor = window.location.hash.slice(1)
+    if (anchor) {
+      window.requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView())
+    } else {
+      window.scrollTo(0, 0)
+    }
   }, [path])
 
   if (path === '/') return <HomePage />
