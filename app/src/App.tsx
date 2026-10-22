@@ -44,6 +44,18 @@ const projects: Project[] = [
     tone: 'signal',
   },
   {
+    status: 'Client deployment · archived operational evidence',
+    title: 'Commerce & Fulfillment Engineering',
+    summary:
+      'Delivered a custom merchant checkout and order workflow connecting direct-to-merchant payment handoffs, notification-based order matching, and shipping preparation.',
+    proof:
+      'Archived WooCommerce records (June 2025–February 2026): 7,559 orders, including 6,746 completed-status orders with $1.23M in recorded order value. Order statuses are not independent proof of settled payments.',
+    tags: ['WooCommerce', 'Workflow automation', 'Shipping integrations', 'Payment handoffs'],
+    href: '/work#commerce',
+    linkLabel: 'Read the case study',
+    tone: 'signal',
+  },
+  {
     status: 'MVP · operations control plane',
     title: 'PluginOps',
     summary:
@@ -137,7 +149,7 @@ function Header() {
       <div className="shell header-inner">
         <BrandMark />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="/#focus">Current focus</a>
+          <a href="/#commerce">Commercial work</a>
           <a href="/work">Selected work</a>
           <a href="/about">About</a>
           <a className="nav-cta" href="mailto:mike@mefworks.com?subject=MEnterprise%20Firm%20Inquiry">
@@ -156,7 +168,7 @@ function Header() {
       </div>
       {open && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
-          <a href="/#focus">Current focus</a>
+          <a href="/#commerce">Commercial work</a>
           <a href="/work">Selected work</a>
           <a href="/about">About</a>
           <a href="mailto:mike@mefworks.com?subject=MEnterprise%20Firm%20Inquiry">Start a conversation</a>
@@ -197,9 +209,9 @@ function Footer() {
 function StatusRail() {
   const items = [
     ['Founded', '2020'],
-    ['Cloud program', 'AWS Activate approved'],
+    ['Delivered work', 'Commercial operations'],
     ['Current build', 'Zero Handoff'],
-    ['Availability', 'Remote + relocation'],
+    ['Availability', 'Projects + remote roles'],
   ]
 
   return (
@@ -266,7 +278,7 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
         {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
       </div>
       {project.href ? (
-        <a className="project-link" href={project.href} target="_blank" rel="noreferrer">
+        <a className="project-link" href={project.href} target={project.href.startsWith("http") ? "_blank" : undefined} rel={project.href.startsWith("http") ? "noreferrer" : undefined}>
           {project.linkLabel ?? 'View project'} <ArrowUpRight size={16} />
         </a>
       ) : (
@@ -286,24 +298,62 @@ function HomePage() {
             <div className="hero-copy">
               <div className="kicker"><span /> Software products & applied systems engineering</div>
               <h1>
-                Build the system.<br />
-                <em>Keep the operator in control.</em>
+                Complex problems.<br />
+                <em>Systems that work.</em>
               </h1>
               <p className="hero-lead">
-                MEnterprise Firm Inc. develops operational software, infrastructure tooling, and resilient business systems that turn real requirements into clear, deployable behavior.
+                MEnterprise Firm Inc. designs, integrates, and operates practical software systems, from commerce and fulfillment workflows to backend services, cloud infrastructure, and automation. Clear decisions, reliable execution, and accountability beyond launch.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#focus">Explore current work <ArrowRight size={17} /></a>
-                <a className="button button-secondary" href="/about">Meet the founder</a>
+                <a className="button button-primary" href="mailto:mike@mefworks.com?subject=Engineering%20Project%20Inquiry">Discuss a project <ArrowRight size={17} /></a>
+                <a className="button button-secondary" href="#commerce">See commercial work</a>
               </div>
               <div className="hero-note">
                 <ShieldCheck size={18} />
-                <span>Evidence before claims. Explicit control before automation.</span>
+                <span>Understand the problem. Build what matters. Own the outcome.</span>
               </div>
             </div>
             <ControlVisual />
           </div>
           <div className="shell"><StatusRail /></div>
+        </section>
+
+        <section className="section commerce-section" id="commerce">
+          <div className="shell">
+            <div className="section-heading split-heading">
+              <div>
+                <span className="section-kicker">Delivered commercial engineering</span>
+                <h2>Real requirements. Real operational use.</h2>
+              </div>
+              <p>
+                A working business system has to do more than pass a demo. It needs to carry orders, support people doing the work, and make consequential decisions visible.
+              </p>
+            </div>
+            <div className="commerce-grid">
+              <div className="commerce-story">
+                <span className="status-pill"><CircleDot size={13} /> Merchant deployment · archived records</span>
+                <h3>Checkout, fulfillment, and judgment in the right places.</h3>
+                <p>
+                  A merchant needed a checkout flow without conventional payment processor integrations. I engineered the WooCommerce workflow around direct-to-merchant payment handoffs, order matching from notification emails, and shipping preparation through customized third-party integrations.
+                </p>
+                <p>
+                  The critical boundary was intentional: a payment notification could advance the workflow, but the merchant verified actual receipt of funds in their own account before completing orders and releasing fulfillment.
+                </p>
+                <a className="text-link" href="/work#commerce">See the engineering case study <ArrowRight size={16} /></a>
+              </div>
+              <div className="commerce-evidence">
+                <div className="architecture-header"><span>Archived WooCommerce data</span><span>JUN 2025 – FEB 2026</span></div>
+                <div className="commerce-metrics">
+                  <div><strong>7,559</strong><span>Total recorded orders</span></div>
+                  <div><strong>6,746</strong><span>Completed-status orders</span></div>
+                  <div><strong>$1.23M</strong><span>Completed-status order value</span></div>
+                </div>
+                <p className="commerce-caveat">
+                  These are application-recorded order figures, not independently verified bank settlements. Project architecture and sanitized supporting evidence are available for qualified review.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="section focus-section" id="focus">
