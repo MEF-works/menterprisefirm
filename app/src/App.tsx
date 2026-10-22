@@ -44,6 +44,18 @@ const projects: Project[] = [
     tone: 'signal',
   },
   {
+    status: 'Client deployment · archived operational evidence',
+    title: 'Commerce & Fulfillment Engineering',
+    summary:
+      'Delivered a custom merchant checkout and order workflow connecting direct-to-merchant payment handoffs, notification-based order matching, and shipping preparation.',
+    proof:
+      'Archived WooCommerce records (June 2025–February 2026): 7,559 orders, including 6,746 completed-status orders with $1.23M in recorded order value. Order statuses are not independent proof of settled payments.',
+    tags: ['WooCommerce', 'Workflow automation', 'Shipping integrations', 'Payment handoffs'],
+    href: '/work#commerce',
+    linkLabel: 'Read the case study',
+    tone: 'signal',
+  },
+  {
     status: 'MVP · operations control plane',
     title: 'PluginOps',
     summary:
@@ -137,7 +149,7 @@ function Header() {
       <div className="shell header-inner">
         <BrandMark />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="/#focus">Current focus</a>
+          <a href="/#commerce">Commercial work</a>
           <a href="/work">Selected work</a>
           <a href="/about">About</a>
           <a className="nav-cta" href="mailto:mike@mefworks.com?subject=MEnterprise%20Firm%20Inquiry">
@@ -156,7 +168,7 @@ function Header() {
       </div>
       {open && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
-          <a href="/#focus">Current focus</a>
+          <a href="/#commerce">Commercial work</a>
           <a href="/work">Selected work</a>
           <a href="/about">About</a>
           <a href="mailto:mike@mefworks.com?subject=MEnterprise%20Firm%20Inquiry">Start a conversation</a>
@@ -197,9 +209,9 @@ function Footer() {
 function StatusRail() {
   const items = [
     ['Founded', '2020'],
-    ['Cloud program', 'AWS Activate approved'],
+    ['Delivered work', 'Commercial operations'],
     ['Current build', 'Zero Handoff'],
-    ['Availability', 'Remote + relocation'],
+    ['Availability', 'Projects + remote roles'],
   ]
 
   return (
@@ -266,7 +278,7 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
         {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
       </div>
       {project.href ? (
-        <a className="project-link" href={project.href} target="_blank" rel="noreferrer">
+        <a className="project-link" href={project.href} target={project.href.startsWith("http") ? "_blank" : undefined} rel={project.href.startsWith("http") ? "noreferrer" : undefined}>
           {project.linkLabel ?? 'View project'} <ArrowUpRight size={16} />
         </a>
       ) : (
@@ -286,24 +298,62 @@ function HomePage() {
             <div className="hero-copy">
               <div className="kicker"><span /> Software products & applied systems engineering</div>
               <h1>
-                Build the system.<br />
-                <em>Keep the operator in control.</em>
+                Complex problems.<br />
+                <em>Systems that work.</em>
               </h1>
               <p className="hero-lead">
-                MEnterprise Firm Inc. develops operational software, infrastructure tooling, and resilient business systems that turn real requirements into clear, deployable behavior.
+                MEnterprise Firm Inc. designs, integrates, and operates practical software systems, from commerce and fulfillment workflows to backend services, cloud infrastructure, and automation. Clear decisions, reliable execution, and accountability beyond launch.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#focus">Explore current work <ArrowRight size={17} /></a>
-                <a className="button button-secondary" href="/about">Meet the founder</a>
+                <a className="button button-primary" href="mailto:mike@mefworks.com?subject=Engineering%20Project%20Inquiry">Discuss a project <ArrowRight size={17} /></a>
+                <a className="button button-secondary" href="#commerce">See commercial work</a>
               </div>
               <div className="hero-note">
                 <ShieldCheck size={18} />
-                <span>Evidence before claims. Explicit control before automation.</span>
+                <span>Understand the problem. Build what matters. Own the outcome.</span>
               </div>
             </div>
             <ControlVisual />
           </div>
           <div className="shell"><StatusRail /></div>
+        </section>
+
+        <section className="section commerce-section" id="commerce">
+          <div className="shell">
+            <div className="section-heading split-heading">
+              <div>
+                <span className="section-kicker">Delivered commercial engineering</span>
+                <h2>Real requirements. Real operational use.</h2>
+              </div>
+              <p>
+                A working business system has to do more than pass a demo. It needs to carry orders, support people doing the work, and make consequential decisions visible.
+              </p>
+            </div>
+            <div className="commerce-grid">
+              <div className="commerce-story">
+                <span className="status-pill"><CircleDot size={13} /> Merchant deployment · archived records</span>
+                <h3>Checkout, fulfillment, and judgment in the right places.</h3>
+                <p>
+                  A merchant needed a checkout flow without conventional payment processor integrations. I engineered the WooCommerce workflow around direct-to-merchant payment handoffs, order matching from notification emails, and shipping preparation through customized third-party integrations.
+                </p>
+                <p>
+                  The critical boundary was intentional: a payment notification could advance the workflow, but the merchant verified actual receipt of funds in their own account before completing orders and releasing fulfillment.
+                </p>
+                <a className="text-link" href="/work#commerce">See the engineering case study <ArrowRight size={16} /></a>
+              </div>
+              <div className="commerce-evidence">
+                <div className="architecture-header"><span>Archived WooCommerce data</span><span>JUN 2025 – FEB 2026</span></div>
+                <div className="commerce-metrics">
+                  <div><strong>7,559</strong><span>Total recorded orders</span></div>
+                  <div><strong>6,746</strong><span>Completed-status orders</span></div>
+                  <div><strong>$1.23M</strong><span>Completed-status order value</span></div>
+                </div>
+                <p className="commerce-caveat">
+                  These are application-recorded order figures, not independently verified bank settlements. Project architecture and sanitized supporting evidence are available for qualified review.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="section focus-section" id="focus">
@@ -370,7 +420,7 @@ function HomePage() {
                 <h2>Systems with a job to do.</h2>
               </div>
               <div className="heading-action">
-                <p>Current candidates are selected for demonstrable architecture, operational value, and relevance to systems engineering roles.</p>
+                <p>Client-delivered workflows, public developer tools, and current products. Each project is presented with its real scope and evidence.</p>
                 <a className="text-link" href="/work">View all selected work <ArrowRight size={16} /></a>
               </div>
             </div>
@@ -413,12 +463,12 @@ function HomePage() {
             </div>
             <div className="founder-copy">
               <span className="section-kicker">Founder briefing</span>
-              <h2>A nontraditional path built through real problems.</h2>
+              <h2>From physical systems to software people depend on.</h2>
               <p>
-                Michael Fluet entered software through hands-on business requirements, beginning with websites, ecommerce, and digital operations before progressing into full-stack applications, APIs, cloud infrastructure, automation, and operational system design.
+                Before software, Michael spent nearly two decades troubleshooting commercial doors and mechanical systems where the outcome had to work in the real world. He brought that same approach to paid web and commerce projects, integrations, backend services, cloud infrastructure, and operational automation.
               </p>
               <p>
-                AI has accelerated that progression by increasing the frequency at which unfamiliar systems can be studied, implemented, tested, challenged, and documented. Architectural decisions, validation, deployment, and the consequences of the result remain his responsibility.
+                His approach is straightforward: understand the constraints, choose proportionate solutions, test assumptions, communicate clearly, and take responsibility for delivery. AI accelerates research and implementation, but it does not replace that judgment.
               </p>
               <div className="founder-actions">
                 <a className="button button-primary" href="/about">Read the full briefing <ArrowRight size={17} /></a>
@@ -434,7 +484,7 @@ function HomePage() {
               <span className="section-kicker">Human + AI collaboration</span>
               <h2>Acceleration without outsourced accountability.</h2>
               <p>
-                AI is used as an engineering collaborator for research, implementation, review, testing, debugging, and documentation. It is not presented as a credential and it does not own the decision to deploy.
+                AI helps explore approaches, implement, review, debug, and document at greater speed. Architecture, validation, client communication, and deployment decisions remain human responsibilities.
               </p>
             </div>
             <div className="responsibility-panel">
@@ -458,15 +508,15 @@ function HomePage() {
         <section className="section contact-section">
           <div className="shell contact-panel">
             <div>
-              <span className="section-kicker">Open to the right next step</span>
-              <h2>Engineering roles, design partnerships, and useful technical work.</h2>
+              <span className="section-kicker">Available for selected work</span>
+              <h2>Have a system to build, improve, or untangle?</h2>
               <p>
-                Michael is pursuing remote software, implementation, support, systems, and cloud engineering opportunities while continuing to develop MEnterprise products.
+                I take on focused engineering work where reliability, clear thinking, and follow-through matter. Open to client projects, technical partnerships, and remote engineering roles.
               </p>
             </div>
             <div className="contact-actions">
-              <a className="button button-light" href="mailto:mike@mefworks.com?subject=Engineering%20Opportunity">Discuss an opportunity <Mail size={17} /></a>
-              <a className="button button-ghost" href="https://builtbymef.pro" target="_blank" rel="noreferrer">Personal profile <ArrowUpRight size={17} /></a>
+              <a className="button button-light" href="mailto:mike@mefworks.com?subject=Engineering%20Project%20Inquiry">Discuss a project <Mail size={17} /></a>
+              <a className="button button-ghost" href="mailto:mike@mefworks.com?subject=Engineering%20Role%20Inquiry">Discuss a role <ArrowUpRight size={17} /></a>
             </div>
           </div>
         </section>
@@ -483,9 +533,9 @@ function AboutPage() {
       <main>
         <section className="page-hero shell">
           <span className="section-kicker">About the company & founder</span>
-          <h1>A clear account of where the work started, how it evolved, and what remains to be proven.</h1>
+          <h1>Practical engineering. Ownership from problem to outcome.</h1>
           <p>
-            MEnterprise Firm Inc. is a privately owned software product and applied systems engineering company founded in 2020. Its current work centers on operator-controlled software, operational tooling, and systems that connect technical execution to practical business needs.
+            Founded in 2020, MEnterprise Firm Inc. builds software products and delivers technical work rooted in operational needs. The experience spans client commerce workflows, applications and integrations, cloud operations, and owner-controlled automation.
           </p>
         </section>
 
@@ -500,7 +550,7 @@ function AboutPage() {
                 The company began as a vehicle for web, ecommerce, and digital business work. Each real deployment exposed the next layer of the problem: integrations, payments, data, automation, infrastructure, monitoring, deployment, and the operating controls required to keep systems useful after launch.
               </p>
               <p>
-                Today, MEnterprise develops owned software products and selected technical systems. The company does not claim enterprise scale or finished mastery. It does claim a substantial record of building, deploying, debugging, and operating increasingly complex systems while documenting what is proven, what is still experimental, and what requires deeper validation.
+                Today, MEnterprise develops owned software products and selected client systems. The standard is practical: understand the business constraint, build what is needed, validate behavior, and leave operators with a system they can actually use. Project write-ups distinguish commercial deployments, working tools, and experiments so readers can evaluate the evidence directly.
               </p>
             </div>
           </div>
@@ -534,15 +584,15 @@ function AboutPage() {
             </div>
             <div className="prose-block founder-prose">
               <span className="section-kicker">Founder briefing</span>
-              <h2>Learning by taking responsibility for real outcomes.</h2>
+              <h2>Dependability isn't a feature. It's how I work.</h2>
               <p>
-                I am the founder of MEnterprise Firm Inc. and an applied systems engineer based in Warren, Ohio. I came into software through hands-on business problems rather than a traditional engineering path, beginning with websites, ecommerce, and digital operations before progressing into full-stack applications, APIs, cloud infrastructure, automation, payment integrations, and operational system design.
+                I'm the founder of MEnterprise Firm Inc. and an applied systems engineer based in Warren, Ohio. For nearly two decades before software, I worked with commercial doors, mechanical troubleshooting, and field operations. That taught me to understand a system before changing it, communicate plainly, and be accountable when something needs to work. I carried those habits into paid web and commerce projects, backend applications, integrations, cloud infrastructure, and automation.
               </p>
               <p>
-                My work with AI has accelerated that progression substantially. I use it as an engineering collaborator for research, implementation, review, testing, and exploring unfamiliar systems, while remaining responsible for defining the problem, making architectural decisions, validating the results, and understanding what is deployed. That collaboration has allowed me to learn rapidly, attempt increasingly complex work, and steadily strengthen both my technical capabilities and judgment.
+                I use AI as an engineering collaborator to explore alternatives, accelerate implementation, challenge assumptions, and improve the feedback loop. But I take ownership of the problem definition, the architecture we choose, the testing, the integrations, and the consequences of shipping. When something is uncertain, I would rather investigate it than pretend otherwise.
               </p>
               <p>
-                I am passionate about building useful systems and understanding how their parts behave together. My immediate goal is to continue developing through professional engineering work, stronger technical mentorship, deeper cloud and systems knowledge, and the continued development of products such as Zero Handoff. I do not consider the journey complete. I am committed to seeing how far disciplined work, honest evaluation, and continued learning can take it.
+                I enjoy difficult problems and believe good engineering is often about finding the simpler solution that still respects the real constraints. I'm easy to work with, direct about tradeoffs, and serious about follow-through. I'm open to the right engineering role, client project, or technical partnership. If there's a useful problem to solve, I'd be glad to talk.
               </p>
             </div>
           </div>
@@ -583,13 +633,13 @@ function AboutPage() {
             </div>
             <div className="assessment-teaser">
               <div>
-                <span>For future due diligence</span>
-                <h3>A candid AI work-history assessment is being prepared.</h3>
+                <span>Working principles</span>
+                <h3>Clear scope. Visible progress. No surprises.</h3>
                 <p>
-                  ChatGPT and Claude will receive the same prompt and be asked to identify demonstrated strengths, weaknesses, knowledge gaps, and areas that remain professionally unproven. The reports will be optional, brief, and published as context rather than endorsement.
+                  A useful engagement starts with understanding the real problem and its constraints. I communicate tradeoffs, test the important assumptions, and make sure ownership and next steps are explicit. When a project has limitations, I'll tell you plainly.
                 </p>
               </div>
-              <span className="teaser-state">COMING AFTER EVIDENCE REVIEW</span>
+              <span className="teaser-state">EVIDENCE-LED DELIVERY</span>
             </div>
           </div>
         </section>
@@ -619,19 +669,55 @@ function WorkPage() {
       <main>
         <section className="page-hero shell">
           <span className="section-kicker">Selected engineering work</span>
-          <h1>Projects chosen for what they demonstrate, not how many were built.</h1>
+          <h1>Built for real workflows. Documented for closer inspection.</h1>
           <p>
-            This collection emphasizes operational architecture, deployable systems, failure handling, automation, and tools that connect software to real work. Public code is linked where appropriate. Private systems are described with their maturity and proof boundaries intact.
+            A selection of commercial delivery, public tooling, and products in development. The details focus on engineering decisions, actual operational behavior, and what the available evidence supports.
           </p>
         </section>
 
         <section className="section work-page-section">
           <div className="shell work-page-grid">
             {projects.map((project, index) => (
-              <div id={index === 0 ? 'zero-handoff' : undefined} key={project.title}>
+              <div id={index === 0 ? 'zero-handoff' : index === 1 ? 'commerce' : undefined} key={project.title}>
                 <ProjectCard project={project} featured={index === 0} />
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="section commerce-case-section">
+          <div className="shell">
+            <div className="section-heading split-heading">
+              <div>
+                <span className="section-kicker">Commercial delivery case study</span>
+                <h2>The important decision was what not to automate.</h2>
+              </div>
+              <p>
+                A merchant needed checkout and shipping workflows that operated around direct-to-merchant payment options. The objective was to reduce repetitive order handling without confusing notification signals with verified funds.
+              </p>
+            </div>
+            <div className="commerce-grid">
+              <div className="commerce-story">
+                <h3>Automate the handoffs. Keep the decision with the merchant.</h3>
+                <p>
+                  The WooCommerce implementation generated orders and handed customers to external payment applications. A custom notification-processing workflow matched incoming payment emails to orders and advanced internal workflow status. Customized third-party shipping integrations prepared the fulfillment steps.
+                </p>
+                <p>
+                  The merchant still checked the receiving account before marking orders complete and buying shipping labels. That was a deliberate control boundary, not an unfinished automation.
+                </p>
+              </div>
+              <div className="commerce-evidence">
+                <div className="architecture-header"><span>Archived application evidence</span><span>8 MONTHS</span></div>
+                <div className="commerce-metrics">
+                  <div><strong>7,559</strong><span>Recorded orders</span></div>
+                  <div><strong>6,746</strong><span>Completed-status orders</span></div>
+                  <div><strong>$1.23M</strong><span>Recorded completed-status value</span></div>
+                </div>
+                <p className="commerce-caveat">
+                  Source: private WooCommerce archive, June 24, 2025–February 23, 2026. These figures reflect application records, not independently confirmed payment settlements. Sanitized architecture and database evidence can be reviewed where appropriate.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -692,7 +778,12 @@ function App() {
   const path = useMemo(() => window.location.pathname.replace(/\/+$/, '') || '/', [])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const anchor = window.location.hash.slice(1)
+    if (anchor) {
+      window.requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView())
+    } else {
+      window.scrollTo(0, 0)
+    }
   }, [path])
 
   if (path === '/') return <HomePage />

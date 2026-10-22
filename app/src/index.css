@@ -353,6 +353,31 @@ h1, h2, h3, p { margin-top: 0; }
   .evidence-panel { padding: 28px 22px; }
 }
 
+
+/* Commercial delivery proof: readable at desktop and phone widths. */
+.commerce-section { background: radial-gradient(circle at 80% 5%, rgba(119,242,181,.045), transparent 34%), #080e0c; }
+.commerce-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); align-items: start; gap: 56px; }
+.commerce-story h3 { margin: 22px 0 18px; font-size: clamp(25px,3vw,34px); line-height: 1.18; letter-spacing: -.035em; }
+.commerce-story p { font-size: 16px; line-height: 1.72; margin: 0 0 18px; }
+.commerce-story .text-link { margin-top: 12px; }
+.commerce-evidence { min-width: 0; overflow: hidden; border: 1px solid rgba(119,242,181,.19); border-radius: 15px 5px 15px 5px; background: linear-gradient(145deg,rgba(21,35,28,.95),rgba(9,15,13,.98)); box-shadow: 0 25px 70px rgba(0,0,0,.24); }
+.commerce-evidence .architecture-header { gap: 12px; flex-wrap: wrap; line-height: 1.45; }
+.commerce-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0; }
+.commerce-metrics div { display: grid; align-content: center; gap: 12px; min-width: 0; padding: 30px 16px; border-right: 1px solid var(--line); }
+.commerce-metrics div:last-child { border-right: none; }
+.commerce-metrics strong { color: var(--signal-strong); font-size: clamp(24px,2.5vw,37px); line-height: 1.05; letter-spacing: -.045em; }
+.commerce-metrics span { color: var(--muted); font-size: 12px; line-height: 1.45; }
+.commerce-caveat { margin: 0; padding: 22px; border-top: 1px solid var(--line); color: var(--quiet); font-size: 12px; line-height: 1.65; }
+@media (max-width: 980px) {
+  .commerce-grid { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 700px) {
+  .commerce-metrics { grid-template-columns: 1fr; }
+  .commerce-metrics div { padding: 18px 22px; border-right: none; border-bottom: 1px solid var(--line); }
+  .commerce-metrics div:last-child { border-bottom: none; }
+  .commerce-metrics strong { font-size: 31px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
