@@ -382,3 +382,27 @@ h1, h2, h3, p { margin-top: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* Enterprise Engine hero: isolated gold surface, existing site styles remain intact. */
+.engine-hero{background:radial-gradient(ellipse at 50% 28%,#151923 0,#080b11 65%);padding:40px 0 28px;color:#f4f4f1;border-bottom:1px solid #292d35}
+.engine-shell{width:min(1508px,calc(100% - 64px));margin:0 auto}
+.engine-intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end;padding:0 0 25px}
+.engine-kicker{display:flex;align-items:center;gap:9px;color:#e7c582;font:500 10px/1.5 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
+.engine-kicker span{width:6px;height:6px;border-radius:50%;background:#e7c582;box-shadow:0 0 12px #e7c582;flex-shrink:0}
+.engine-intro h1{font:600 clamp(40px,5.1vw,76px)/.99 'Manrope',sans-serif;letter-spacing:-.065em;margin:14px 0 0}
+.engine-intro h1 em{font-style:normal;color:#e7c582}
+.engine-lead{font-size:14px;line-height:1.65;color:#b3bac4;max-width:570px;margin:0 0 15px}
+.engine-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.engine-cta,.engine-work{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700}
+.engine-cta{border:1px solid #e7c582;background:#e7c582;color:#17130c;padding:11px 16px;border-radius:5px}
+.engine-cta:hover{background:#f4d9a4}
+.engine-work{color:#e7c582}
+.engine-work:hover,.engine-alternative a:hover{text-decoration:underline}
+.engine-hero a:focus-visible{outline:2px solid #e7c582;outline-offset:4px}
+.engine-frame-wrap{min-width:0}
+.engine-frame{display:block;width:100%;border:0;background:transparent}
+.engine-alternative{font-size:11px;color:#a6adba;line-height:1.5;margin:12px 0 26px}
+.engine-alternative a{color:#e7c582;text-decoration:underline}
+@media(max-width:900px){.engine-shell{width:calc(100% - 40px)}.engine-intro{gap:20px}}
+@media(max-width:680px){.engine-shell{width:calc(100% - 28px)}.engine-hero{padding:25px 0 20px}.engine-intro{grid-template-columns:1fr;gap:15px;padding-bottom:18px}.engine-intro h1{font-size:clamp(39px,10vw,54px)}.engine-lead{font-size:13px;margin-bottom:12px}.engine-actions{gap:14px}.engine-alternative{margin-bottom:18px}}
