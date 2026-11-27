@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -6,7 +6,6 @@ import {
   BrainCircuit,
   BriefcaseBusiness,
   Check,
-  ChevronRight,
   CircleDot,
   Code2,
   Database,
@@ -226,41 +225,6 @@ function StatusRail() {
   )
 }
 
-function ControlVisual() {
-  const steps = ['Failure', 'Context', 'Proposal', 'Approval', 'Execute', 'Verify']
-  return (
-    <div className="control-visual" aria-label="Zero Handoff controlled execution flow">
-      <div className="visual-glow" aria-hidden="true" />
-      <div className="visual-head">
-        <span className="eyebrow-dot"><CircleDot size={14} /> Live system model</span>
-        <span className="visual-state">OWNER CONTROLLED</span>
-      </div>
-      <div className="execution-core">
-        <div className="core-ring core-ring-one" />
-        <div className="core-ring core-ring-two" />
-        <div className="core-center">
-          <ShieldCheck size={30} />
-          <strong>Exact authority</strong>
-          <span>One approved action</span>
-        </div>
-      </div>
-      <div className="flow-list">
-        {steps.map((step, index) => (
-          <div className="flow-step" key={step}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{step}</strong>
-            {index < steps.length - 1 && <ChevronRight size={14} />}
-          </div>
-        ))}
-      </div>
-      <div className="visual-foot">
-        <span><Check size={14} /> Single-use approval</span>
-        <span><Check size={14} /> Immutable evidence</span>
-      </div>
-    </div>
-  )
-}
-
 function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
   return (
     <article className={`project-card project-${project.tone}${featured ? ' project-featured' : ''}`}>
@@ -288,32 +252,68 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
   )
 }
 
+function EnterpriseEngine() {
+  const frame = useRef<HTMLIFrameElement>(null)
+  const observer = useRef<ResizeObserver | null>(null)
+  const [height, setHeight] = useState(640)
+
+  useEffect(() => () => observer.current?.disconnect(), [])
+
+  function fitFrame() {
+    observer.current?.disconnect()
+    const content = frame.current?.contentDocument?.querySelector('main')
+    if (!content) return
+    const measure = () => {
+      const next = Math.ceil(content.getBoundingClientRect().height) + 4
+      if (next > 0) setHeight(next)
+    }
+    measure()
+    if (typeof ResizeObserver !== 'undefined') {
+      observer.current = new ResizeObserver(measure)
+      observer.current.observe(content)
+    }
+  }
+
+  return (
+    <div className="engine-frame-wrap">
+      <iframe
+        ref={frame}
+        className="engine-frame"
+        src="/enterprise-engine.html"
+        title="Interactive MEnterprise ecosystem explorer"
+        style={{ height }}
+        onLoad={fitFrame}
+      />
+      <p className="engine-alternative">
+        Prefer a text overview? <a href="/work">Browse selected engineering work</a> or <a href="/about">learn about the company</a>.
+      </p>
+    </div>
+  )
+}
+
 function HomePage() {
   return (
     <>
       <Header />
       <main>
-        <section className="hero-section">
-          <div className="hero-grid shell">
-            <div className="hero-copy">
-              <div className="kicker"><span /> Software products & applied systems engineering</div>
-              <h1>
-                Complex problems.<br />
-                <em>Systems that work.</em>
-              </h1>
-              <p className="hero-lead">
-                MEnterprise Firm Inc. designs, integrates, and operates practical software systems, from commerce and fulfillment workflows to backend services, cloud infrastructure, and automation. Clear decisions, reliable execution, and accountability beyond launch.
-              </p>
-              <div className="hero-actions">
-                <a className="button button-primary" href="mailto:mike@mefworks.com?subject=Engineering%20Project%20Inquiry">Discuss a project <ArrowRight size={17} /></a>
-                <a className="button button-secondary" href="#commerce">See commercial work</a>
+        <section className="engine-hero" aria-labelledby="engine-title">
+          <div className="engine-shell">
+            <div className="engine-intro">
+              <div>
+                <div className="engine-kicker"><span /> Independent systems. Shared architecture.</div>
+                <h1 id="engine-title">An enterprise.<br /><em>Engineered.</em></h1>
               </div>
-              <div className="hero-note">
-                <ShieldCheck size={18} />
-                <span>Understand the problem. Build what matters. Own the outcome.</span>
+              <div>
+                <p className="engine-lead">
+                  MEnterprise Firm Inc. designs, integrates, and operates practical software systems, from commerce and fulfillment workflows to backend services, cloud infrastructure, and automation. Explore the technologies that make up our ecosystem.
+                </p>
+                <div className="engine-actions">
+                  <a className="engine-cta" href="mailto:mike@mefworks.com?subject=Engineering%20Project%20Inquiry">Discuss a project <ArrowRight size={16} /></a>
+                  <a className="engine-work" href="#commerce">See commercial work <ArrowRight size={16} /></a>
+                </div>
               </div>
             </div>
-            <ControlVisual />
+            <EnterpriseEngine />
           </div>
           <div className="shell"><StatusRail /></div>
         </section>
